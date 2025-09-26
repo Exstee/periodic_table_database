@@ -10,5 +10,7 @@ ELEMENT=$($PSQL "SELECT atomic_number, name, symbol FROM elements WHERE atomic_n
 
 if [[ -z "$ELEMENT" ]]; then
   echo "I could not find that element in the database."
-  exit
+else
+  IFS="|" read ATOMIC_NUMBER NAME SYMBOL TYPE MASS MELT BOIL <<< "$ELEMENT"
+  echo "The element with atomic number $ATOMIC_NUMBER is $NAME ($SYMBOL). It's a $TYPE, with a mass of $MASS amu. $NAME has a melting point of $MELT celsius and a boiling point of $BOIL celsius."
 fi
